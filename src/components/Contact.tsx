@@ -1,47 +1,23 @@
 import { useState, type FormEvent } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Linkedin, Github, Send, GraduationCap } from 'lucide-react';
-import { PROFILE } from '../data/profile';
+import { Mail, Linkedin, Github, Send } from 'lucide-react';
+import { PROFILE, SOCIAL_LINKS } from '../data/profile';
 
 export const Contact = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  // Same approach as the live site: opens the visitor's email client with a pre-filled message.
+  // No third-party form service, so no data leaves the browser until the visitor sends the email.
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!name || !email || !message) return;
-
-    setStatus('loading');
-
-    try {
-      const response = await fetch("https://formsubmit.co/ajax/urshari@gmail.com", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: name,
-          email: email,
-          message: message,
-          _subject: `Portfolio Contact from ${name}`
-        })
-      });
-
-      if (response.ok) {
-        setStatus('success');
-        setName('');
-        setEmail('');
-        setMessage('');
-        setTimeout(() => setStatus('idle'), 5000);
-      } else {
-        setStatus('error');
-      }
-    } catch {
-      setStatus('error');
-    }
+    const n = name.trim();
+    const r = email.trim();
+    const m = message.trim();
+    if (!n || !r || !m) return;
+    const subject = encodeURIComponent(`Portfolio Contact from ${n}`);
+    const body = encodeURIComponent(`Name: ${n}\nEmail: ${r}\n\nMessage:\n${m}`);
+    window.location.href = `mailto:${PROFILE.email}?subject=${subject}&body=${body}`;
   };
   return (
     <section id="contact" className="py-24 relative overflow-hidden">
@@ -98,15 +74,22 @@ export const Contact = () => {
 
             </div>
 
-            <div className="flex gap-4 mt-8">
-              <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-12 h-12 rounded-full bg-black/5 flex items-center justify-center text-slate-600 hover:bg-neon-blue/20 hover:text-slate-900 transition-all">
-                <Linkedin size={20} />
-              </a>
-              <a href={PROFILE.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="w-12 h-12 rounded-full bg-black/5 flex items-center justify-center text-slate-600 hover:bg-neon-blue/20 hover:text-slate-900 transition-all">
+            <div className="flex flex-wrap gap-3 mt-8">
+              {SOCIAL_LINKS.map((l) => (
+                <a
+                  key={l.title}
+                  href={l.href}
+                  title={l.title}
+                  aria-label={l.title}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block h-10 w-10 rounded-md shadow-sm hover:-translate-y-1 transition-transform"
+                >
+                  <img src={l.image} alt={l.title} width={40} height={40} loading="lazy" className="h-full w-full object-contain" />
+                </a>
+              ))}
+              <a href={PROFILE.github} target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub" className="w-10 h-10 rounded-md bg-slate-900 flex items-center justify-center text-white hover:-translate-y-1 transition-transform">
                 <Github size={20} />
-              </a>
-              <a href={PROFILE.scholar} target="_blank" rel="noopener noreferrer" aria-label="Google Scholar" className="w-12 h-12 rounded-full bg-black/5 flex items-center justify-center text-slate-600 hover:bg-neon-blue/20 hover:text-slate-900 transition-all">
-                <GraduationCap size={20} />
               </a>
             </div>
           </motion.div>
@@ -169,32 +152,12 @@ export const Contact = () => {
 
               <button
                 type="submit"
-                disabled={status === 'loading'}
-                className="w-full flex items-center justify-center gap-2 py-4 bg-neon-blue/10 border border-neon-blue text-slate-900 font-semibold rounded-lg hover:bg-neon-blue/20 hover:shadow-[0_0_15px_rgba(0,240,255,0.4)] transition-all group disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full flex items-center justify-center gap-2 py-4 bg-slate-900 text-white font-semibold rounded-lg hover:bg-slate-700 transition-all group"
               >
-                {status === 'loading' ? 'Sending…' : 'Send message'}
-                                {status !== 'loading' && <Send size={18} className="group-hover:translate-x-1 transition-transform" />}
+                Send via email
+                <Send size={18} className="group-hover:translate-x-1 transition-transform" />
               </button>
-
-              {status === 'success' && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg text-center text-sm"
-                >
-                  Thank you. Your message has been sent.
-                </motion.div>
-              )}
-
-              {status === 'error' && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg text-center text-sm"
-                >
-                  Sorry, the message could not be sent. Please email me directly.
-                </motion.div>
-              )}
+              <p className="text-xs text-slate-500 text-center">Opens your email app with the message pre-filled.</p>
             </div>
           </motion.form>
         </div>

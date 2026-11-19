@@ -31,7 +31,7 @@ export const Footer = () => {
 
         <div className="mt-8 pt-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center text-xs font-mono text-slate-500">
           <p>© {new Date().getFullYear()} Dr. Harihara Gopalan S. All Rights Reserved.</p>
-          <a href="https://www.linkedin.com/in/harisuryanarayanan" target="_blank" rel="noopener noreferrer" className="mt-2 md:mt-0 hover:text-slate-900 transition-colors">
+          <a href="https://www.linkedin.com/in/harisuryanarayanan/" target="_blank" rel="noopener noreferrer" className="mt-2 md:mt-0 hover:text-slate-900 transition-colors">
             linkedin.com/in/harisuryanarayanan
           </a>
         </div>

@@ -37,12 +37,12 @@ export const About = () => {
           >
             <div className="absolute top-0 right-0 w-32 h-32 bg-neon-blue/10 blur-3xl rounded-full pb-10"></div>
 
-            <div className="w-full aspect-[4/3] rounded-lg mb-6 relative overflow-hidden border-2 border-slate-200 group-hover:border-neon-blue/50 transition-colors shadow-lg bg-slate-100">
+            <div className="w-full aspect-square rounded-lg mb-6 relative overflow-hidden border-2 border-slate-200 group-hover:border-neon-blue/50 transition-colors shadow-lg bg-slate-100">
               <img
                 src="/profile-photo.jpg"
-                alt="Dr. Harihara Gopalan S speaking at a podium"
-                width={1200}
-                height={798}
+                alt="Dr. Harihara Gopalan S professional profile photo"
+                width={685}
+                height={690}
                 loading="lazy"
                 decoding="async"
                 className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Briefcase } from 'lucide-react';
+import { Briefcase, ExternalLink } from 'lucide-react';
 import { EXPERIENCE } from '../data/profile';
 
 export const Experience = () => {
@@ -59,6 +59,16 @@ export const Experience = () => {
                         </li>
                       ))}
                     </ul>
+                  )}
+                  {exp.website && (
+                    <a
+                      href={exp.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 mt-5 px-4 py-2 border border-slate-900 text-slate-900 rounded-lg hover:bg-slate-100 transition-colors font-semibold text-sm"
+                    >
+                      Company website <ExternalLink size={16} />
+                    </a>
                   )}
                 </div>
               </div>

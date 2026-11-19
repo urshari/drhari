@@ -39,9 +39,9 @@ export const Impact = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="glass-panel rounded-xl p-8 border-t-4 border-matrix-green flex flex-col md:flex-row md:items-center gap-4 md:gap-8"
+                className="glass-panel rounded-xl p-8 border-t-4 border-matrix-green flex flex-col gap-3"
               >
-                <div className="text-4xl md:text-5xl font-bold text-slate-900 shrink-0">{m.value}</div>
+                <div className="text-4xl md:text-5xl font-bold text-slate-900">{m.value}</div>
                 <div>
                   <p className="text-sm font-mono uppercase tracking-wider text-slate-500">{m.label}</p>
                   <p className="text-slate-600 mt-1">{m.context}</p>

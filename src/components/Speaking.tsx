@@ -17,7 +17,7 @@ export const Speaking = () => {
             Speaking & <span className="text-matrix-green glow-text">Thought Leadership</span>
           </h2>
           <p className="text-slate-600 text-base max-w-2xl mx-auto">
-            Sharing practical cybersecurity perspectives with CISOs, business leaders, educators and students.
+            Keynote and expert sessions for leadership forums, cybersecurity communities and professional training programmes.
           </p>
         </motion.div>
 
@@ -59,6 +59,25 @@ export const Speaking = () => {
           </div>
 
           <div className="lg:col-span-5 space-y-6">
+            <motion.figure
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="glass-panel rounded-xl overflow-hidden"
+            >
+              <img
+                src="/speaking-isea-ciso-2026.jpg"
+                alt="Dr. Harihara Gopalan S speaking at the ISEA–CISO Leadership Meet 2026"
+                width={1200}
+                height={798}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-auto"
+              />
+              <figcaption className="px-4 py-3 text-sm text-slate-600">ISEA–CISO Leadership Meet 2026, Chennai</figcaption>
+            </motion.figure>
+
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}

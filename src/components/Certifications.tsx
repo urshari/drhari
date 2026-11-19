@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { ShieldCheck, Lock, Award, CheckCircle } from 'lucide-react';
-import { CERTIFICATIONS } from '../data/profile';
+import { ShieldCheck, Lock, Award, CheckCircle, ExternalLink } from 'lucide-react';
+import { CERTIFICATIONS, RECOGNITION } from '../data/profile';
 
 const icons = [ShieldCheck, Lock, Award, CheckCircle];
 
@@ -33,7 +33,17 @@ export const Certifications = () => {
                 transition={{ duration: 0.4, delay: index * 0.05 }}
                 className={`glass-panel p-6 rounded-xl flex flex-col items-center text-center ${cert.current ? 'border-t-4 border-matrix-green' : ''}`}
               >
-                <Icon size={40} className={`${cert.current ? 'text-matrix-green' : 'text-neon-blue'} mb-4`} />
+                <div className="h-24 flex items-center justify-center mb-4">
+                  {cert.badge ? (
+                    <img
+                      src={cert.badge}
+                      alt={`${cert.name} badge`}
+                      className={`h-20 sm:h-24 ${cert.badgeWide ? 'w-40 sm:w-48' : 'w-20 sm:w-24'} object-contain rounded-lg`}
+                    />
+                  ) : (
+                    <Icon size={48} className={cert.current ? 'text-matrix-green' : 'text-neon-blue'} />
+                  )}
+                </div>
                 <h3 className="text-slate-900 font-semibold leading-tight">{cert.name}</h3>
                 <p className="text-sm text-slate-600 mt-2">{cert.issuer}</p>
                 {(cert.year || cert.current) && (
@@ -44,10 +54,42 @@ export const Certifications = () => {
                     )}
                   </p>
                 )}
+                {cert.verify && (
+                  <a
+                    href={cert.verify}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-slate-700 hover:text-slate-900 underline-offset-4 hover:underline"
+                  >
+                    {cert.verifyLabel} <ExternalLink size={14} />
+                  </a>
+                )}
               </motion.div>
             );
           })}
         </div>
+
+        <motion.a
+          href={RECOGNITION.verify}
+          target="_blank"
+          rel="noopener noreferrer"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="mt-8 mx-auto max-w-xl glass-panel rounded-xl p-5 flex items-center gap-5 hover:border-neon-blue/40 transition-colors"
+        >
+          <img src={RECOGNITION.badge} alt={`${RECOGNITION.name} badge`} width={72} height={74} className="w-16 h-16 object-contain shrink-0" />
+          <div>
+            <p className="text-xs font-mono uppercase tracking-wider text-slate-500">Recognition</p>
+            <p className="font-semibold text-slate-900">
+              {RECOGNITION.name} · {RECOGNITION.issuer}
+            </p>
+            <p className="text-sm text-slate-600 inline-flex items-center gap-1">
+              Verify with EC-Council <ExternalLink size={14} />
+            </p>
+          </div>
+        </motion.a>
       </div>
     </section>
   );

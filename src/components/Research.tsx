@@ -58,6 +58,7 @@ export const Research = () => {
               { label: 'ORCID', href: PROFILE.orcid },
               { label: 'Scopus', href: PROFILE.scopus },
               { label: 'Web of Science', href: PROFILE.webOfScience },
+              { label: 'SciProfiles', href: PROFILE.sciprofiles },
             ].map((l) => (
               <a
                 key={l.label}
@@ -125,7 +126,7 @@ export const Research = () => {
             </p>
             <div className="flex gap-4 pt-4 mt-6 border-t border-slate-100">
               <a
-                href={`${PROFILE.scholar}&view_op=list_works`}
+                href={PROFILE.scholarWorks}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg transition-colors font-medium text-sm"

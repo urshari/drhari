@@ -9,14 +9,30 @@ export const PROFILE = {
   currentRole: 'Senior Manager, TechGuard Labs Foundation',
   yearsExperience: '18+',
   email: 'urshari@gmail.com',
-  linkedin: 'https://www.linkedin.com/in/harisuryanarayanan',
+  // Exact URLs as published on the live site (Nov 2026).
+  linkedin: 'https://www.linkedin.com/in/harisuryanarayanan/',
+  linkedinCertifications: 'https://www.linkedin.com/in/harisuryanarayanan/details/certifications/',
+  facebook: 'https://www.facebook.com/harisuryanarayanan',
+  sciprofiles: 'https://sciprofiles.com/profile/1579844',
   github: 'https://github.com/urshari',
-  scholar: 'https://scholar.google.com/citations?user=DsMW6P0AAAAJ',
+  scholar: 'https://scholar.google.com/citations?user=DsMW6P0AAAAJ&hl=en',
+  scholarWorks: 'https://scholar.google.com/citations?view_op=list_works&hl=en&hl=en&user=DsMW6P0AAAAJ',
   orcid: 'https://orcid.org/0000-0003-0830-9742',
   scopus: 'https://www.scopus.com/authid/detail.uri?authorId=57194520134',
   webOfScience: 'https://www.webofscience.com/wos/author/record/AAJ-9817-2021',
   techguard: 'https://www.techguardlabs.com/',
 } as const;
+
+// Profile links shown as icons (hero + contact). Icons ported from the live site's /badges/.
+export const SOCIAL_LINKS = [
+  { title: 'LinkedIn', href: PROFILE.linkedin, image: '/badges/linkedin.svg' },
+  { title: 'Google Scholar', href: PROFILE.scholar, image: '/badges/google-scholar.svg' },
+  { title: 'ORCID', href: PROFILE.orcid, image: '/badges/orcid.svg' },
+  { title: 'Scopus', href: PROFILE.scopus, image: '/badges/scopus.svg' },
+  { title: 'Web of Science', href: PROFILE.webOfScience, image: '/badges/web-of-science.svg' },
+  { title: 'SciProfiles', href: PROFILE.sciprofiles, image: '/badges/sciprofiles.svg' },
+  { title: 'Facebook', href: PROFILE.facebook, image: '/badges/facebook.svg' },
+];
 
 export interface ExperienceItem {
   role: string;
@@ -26,6 +42,7 @@ export interface ExperienceItem {
   current?: boolean;
   description: string;
   bullets?: string[];
+  website?: string;
 }
 
 export const EXPERIENCE: ExperienceItem[] = [
@@ -35,6 +52,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     location: 'Coimbatore · Indo-Israeli cybersecurity company',
     period: 'Apr 2026 – Present',
     current: true,
+    website: 'https://www.techguardlabs.com/',
     description:
       'Leads business strategy, client engagement, strategic partnerships and solution delivery across enterprise and consumer markets.',
     bullets: [
@@ -68,7 +86,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     location: 'Coimbatore',
     period: 'Jun 2008 – Nov 2024',
     description:
-      'Led campus IT services and network operations: fibre backbone and core switching, enterprise wireless, security operations and centralised CCTV surveillance.',
+      'Led campus IT services and large-scale infrastructure: fibre backbone and core switching, enterprise wireless, security operations, centralised CCTV surveillance, access control and operational continuity.',
   },
   {
     role: 'IASc Summer Research Fellow',
@@ -118,12 +136,49 @@ export const EXPERTISE = [
 ];
 
 // Notable credentials only. Status is shown honestly: only CISA is presented as current.
-export const CERTIFICATIONS = [
+// `verify` links and badge images are ported from the live site.
+export interface Certification {
+  name: string;
+  issuer: string;
+  year: string;
+  current: boolean;
+  badge?: string;
+  badgeWide?: boolean;
+  verify?: string;
+  verifyLabel?: string;
+}
+
+export const CERTIFICATIONS: Certification[] = [
   { name: 'Certified Information Systems Auditor (CISA)', issuer: 'ISACA', year: '2026', current: true },
-  { name: 'Certified Chief Information Security Officer (C|CISO)', issuer: 'EC-Council', year: '2024', current: false },
-  { name: 'Certified Ethical Hacker (C|EH)', issuer: 'EC-Council', year: '2023', current: false },
+  {
+    name: 'Certified Chief Information Security Officer (C|CISO)',
+    issuer: 'EC-Council',
+    year: '2024',
+    current: false,
+    badge: '/badges/cciso.svg',
+    badgeWide: true,
+    verify: PROFILE.linkedinCertifications,
+    verifyLabel: 'View on LinkedIn',
+  },
+  {
+    name: 'Certified Ethical Hacker (C|EH)',
+    issuer: 'EC-Council',
+    year: '2023',
+    current: false,
+    badge: '/badges/ceh-badge.png',
+    verify: 'https://aspen.eccouncil.org/VerifyBadge?type=certification&a=8pn0vFdle07YbNJY0FAjNfK0UV98ncfHwyzLA8jZTDY=',
+    verifyLabel: 'Verify with EC-Council',
+  },
   { name: 'Certified Blockchain Associate', issuer: 'Kerala Blockchain Academy', year: '', current: false },
 ];
+
+// Recognition (not a certification).
+export const RECOGNITION = {
+  name: 'Cybersecurity Career Mentor',
+  issuer: 'EC-Council',
+  badge: '/badges/career-mentor-badge.png',
+  verify: 'https://aspen.eccouncil.org/VerifyBadge?type=mentor&a=8pn0vFdle07YbNJY0FAjNfK0UV98ncfHwyzLA8jZTDY=',
+};
 
 export const EDUCATION = [
   { degree: 'Ph.D.', specialization: 'Mobile Ad hoc Networks', institution: 'Anna University, Chennai', years: '2011 – 2017' },
@@ -185,7 +240,7 @@ export const RECOMMENDATIONS = [
 /**
  * Impact metrics. Only entries with a non-null `value` are rendered.
  * NEVER fill these with estimates — each value must be one Dr. Hari can stand behind.
- * The Rs. 30 Lakhs figure is taken from the existing site (CDAC-Chennai collaboration).
+ * Shown values are taken from the live site (Nov 2026): Rs. 30 Lakhs (CDAC-Chennai), 10+ talks, 5+ years mentorship.
  */
 export interface ImpactMetric {
   value: string | null;
@@ -199,6 +254,9 @@ export const IMPACT: ImpactMetric[] = [
     label: 'Technology deployment',
     context: 'Collaborative R&D with CDAC-Chennai: cybersecurity consulting, workforce training and online assessment systems.',
   },
+  // The next two figures are published on the live site (Speaking & Mentorship section).
+  { value: '10+', label: 'Executive talks & keynotes', context: 'Leadership forums, cybersecurity communities and professional training programmes.' },
+  { value: '5+ years', label: 'Innovation mentorship', context: 'Mentoring student innovation teams, including Smart India Hackathon participation.' },
   // TODO(Hari): supply real numbers, then set `value` to display them.
   { value: null, label: 'Organisations advised', context: 'TechGuard Labs Foundation engagements (security, GRC, digital trust)' },
   { value: null, label: 'Assessments / audits delivered', context: 'Risk assessments, compliance or IS audit engagements' },
@@ -213,16 +271,18 @@ export const PARTNERSHIPS = [
     title: 'India–Israel Cybersecurity',
     location: 'TechGuard Labs Foundation · Ariel University, Israel',
     description:
-      'Indo-Israel technology partnerships at TechGuard; earlier completed hands-on Cyber Range training at Ariel University.',
+      'Indo-Israel technology partnerships at TechGuard. Completed hands-on training in Cyber Range-based simulation environments at Ariel University, strengthening practical incident response and enterprise security readiness.',
   },
   {
     title: 'Collaborative R&D',
     location: 'CDAC-Chennai',
-    description: 'Cybersecurity consulting, workforce training and online assessment systems.',
+    description:
+      'Drove strategic collaboration on cybersecurity consulting, workforce training, online assessment systems and a Rs. 30 Lakhs technology deployment.',
   },
   {
-    title: 'International Academic Outreach',
+    title: 'International Partnerships',
     location: 'Swinburne University & APU, Malaysia',
-    description: 'Academic collaboration on joint research, faculty exchange and cross-border initiatives.',
+    description:
+      'Built cross-border partnerships focused on cybersecurity knowledge exchange, applied programmes, professional training, joint research and faculty exchange.',
   },
 ];

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { ChevronRight, Linkedin, MapPin } from 'lucide-react';
-import { PROFILE } from '../data/profile';
+import { PROFILE, SOCIAL_LINKS } from '../data/profile';
 
 export const Hero = () => {
   return (
@@ -30,6 +30,27 @@ export const Hero = () => {
           >
             {PROFILE.name}
           </motion.h1>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.12 }}
+            className="flex flex-wrap items-center gap-2"
+          >
+            {SOCIAL_LINKS.map((l) => (
+              <a
+                key={l.title}
+                href={l.href}
+                title={l.title}
+                aria-label={l.title}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block h-8 w-8 rounded-md shadow-sm hover:-translate-y-1 transition-transform"
+              >
+                <img src={l.image} alt={l.title} width={32} height={32} className="h-full w-full object-contain" />
+              </a>
+            ))}
+          </motion.div>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -84,9 +105,9 @@ export const Hero = () => {
             className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-mono text-slate-600"
           >
             <span>{PROFILE.currentRole}</span>
-            <span className="text-slate-300">|</span>
+            <span className="hidden sm:inline text-slate-300">|</span>
             <span>CISA · Ph.D.</span>
-            <span className="text-slate-300">|</span>
+            <span className="hidden sm:inline text-slate-300">|</span>
             <span className="inline-flex items-center gap-1">
               <MapPin size={14} /> {PROFILE.location}
             </span>
