@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Linkedin, Github, Send } from 'lucide-react';
+import { Mail, Linkedin, Github, Send, GraduationCap } from 'lucide-react';
+import { PROFILE } from '../data/profile';
 
 export const Contact = () => {
   const [name, setName] = useState('');
@@ -8,7 +9,7 @@ export const Contact = () => {
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!name || !email || !message) return;
 
@@ -38,7 +39,7 @@ export const Contact = () => {
       } else {
         setStatus('error');
       }
-    } catch (error) {
+    } catch {
       setStatus('error');
     }
   };
@@ -55,7 +56,7 @@ export const Contact = () => {
           className="mb-16"
         >
           <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">
-            Initialize <span className="text-neon-blue glow-text">Connection</span>
+            Let&apos;s <span className="text-neon-blue glow-text">Connect</span>
           </h2>
           <div className="h-[1px] w-full bg-gradient-to-r from-neon-blue/50 to-transparent"></div>
         </motion.div>
@@ -68,28 +69,28 @@ export const Contact = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-2xl font-bold text-slate-900 mb-6">Let's Secure the Future</h3>
+            <h3 className="text-2xl font-bold text-slate-900 mb-6">Work with me</h3>
             <p className="text-slate-600 mb-8 leading-relaxed">
-              Open to keynote speaking, startup mentoring, cybersecurity consultation, and research collaborations. Enter the secure channel to get in touch.
+              Open to conversations on cybersecurity strategy, GRC and digital-trust engagements, India–Israel technology partnerships, speaking invitations and advisory roles.
             </p>
 
             <div className="space-y-6">
-              <a href="mailto:urshari@gmail.com" className="flex items-center gap-4 text-slate-700 hover:text-neon-blue transition-colors group">
+              <a href={`mailto:${PROFILE.email}`} className="flex items-center gap-4 text-slate-700 hover:text-neon-blue transition-colors group">
                 <div className="w-12 h-12 rounded-full glass-panel flex items-center justify-center group-hover:border-neon-blue/50 transition-colors">
                   <Mail size={20} />
                 </div>
                 <div>
-                  <p className="text-sm text-slate-500 font-mono">SECURE_MAIL</p>
-                  <p className="font-semibold">urshari@gmail.com</p>
+                  <p className="text-sm text-slate-500 font-mono">Email</p>
+                  <p className="font-semibold">{PROFILE.email}</p>
                 </div>
               </a>
 
-              <a href="https://www.linkedin.com/in/harisuryanarayanan/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-slate-700 hover:text-neon-blue transition-colors group">
+              <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-slate-700 hover:text-neon-blue transition-colors group">
                 <div className="w-12 h-12 rounded-full glass-panel flex items-center justify-center border-slate-200 group-hover:border-neon-blue/50 transition-colors">
                   <Linkedin size={20} />
                 </div>
                 <div>
-                  <p className="text-sm text-slate-500 font-mono">PROFESSIONAL_NETWORK</p>
+                  <p className="text-sm text-slate-500 font-mono">LinkedIn</p>
                   <p className="font-semibold">linkedin.com/in/harisuryanarayanan</p>
                 </div>
               </a>
@@ -98,11 +99,14 @@ export const Contact = () => {
             </div>
 
             <div className="flex gap-4 mt-8">
-              <a href="https://www.linkedin.com/in/harisuryanarayanan/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-black/5 flex items-center justify-center text-slate-600 hover:bg-neon-blue/20 hover:text-slate-900 transition-all">
+              <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-12 h-12 rounded-full bg-black/5 flex items-center justify-center text-slate-600 hover:bg-neon-blue/20 hover:text-slate-900 transition-all">
                 <Linkedin size={20} />
               </a>
-              <a href="https://github.com/urshari" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-black/5 flex items-center justify-center text-slate-600 hover:bg-neon-blue/20 hover:text-slate-900 transition-all">
+              <a href={PROFILE.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="w-12 h-12 rounded-full bg-black/5 flex items-center justify-center text-slate-600 hover:bg-neon-blue/20 hover:text-slate-900 transition-all">
                 <Github size={20} />
+              </a>
+              <a href={PROFILE.scholar} target="_blank" rel="noopener noreferrer" aria-label="Google Scholar" className="w-12 h-12 rounded-full bg-black/5 flex items-center justify-center text-slate-600 hover:bg-neon-blue/20 hover:text-slate-900 transition-all">
+                <GraduationCap size={20} />
               </a>
             </div>
           </motion.div>
@@ -120,8 +124,11 @@ export const Contact = () => {
 
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-mono text-slate-600 mb-2">IDENTIFICATION</label>
+                <label htmlFor="contact-name" className="block text-sm font-medium text-slate-600 mb-2">Name</label>
                 <input
+                  id="contact-name"
+                  name="name"
+                  autoComplete="name"
                   type="text"
                   placeholder="Your Name"
                   value={name}
@@ -132,8 +139,11 @@ export const Contact = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-mono text-slate-600 mb-2">RETURN_ADDRESS</label>
+                <label htmlFor="contact-email" className="block text-sm font-medium text-slate-600 mb-2">Email</label>
                 <input
+                  id="contact-email"
+                  name="email"
+                  autoComplete="email"
                   type="email"
                   placeholder="Your Email"
                   value={email}
@@ -144,8 +154,10 @@ export const Contact = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-mono text-slate-600 mb-2">PAYLOAD</label>
+                <label htmlFor="contact-message" className="block text-sm font-medium text-slate-600 mb-2">Message</label>
                 <textarea
+                  id="contact-message"
+                  name="message"
                   rows={4}
                   placeholder="Your Message"
                   value={message}
@@ -160,18 +172,17 @@ export const Contact = () => {
                 disabled={status === 'loading'}
                 className="w-full flex items-center justify-center gap-2 py-4 bg-neon-blue/10 border border-neon-blue text-slate-900 font-semibold rounded-lg hover:bg-neon-blue/20 hover:shadow-[0_0_15px_rgba(0,240,255,0.4)] transition-all group disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {status === 'loading' ? 'TRANSMITTING...' : 'TRANSMIT SECURE DATA'}
-                {!status && <Send size={18} className="group-hover:translate-x-1 transition-transform" />}
-                {status !== 'loading' && <Send size={18} className="group-hover:translate-x-1 transition-transform" />}
+                {status === 'loading' ? 'Sending…' : 'Send message'}
+                                {status !== 'loading' && <Send size={18} className="group-hover:translate-x-1 transition-transform" />}
               </button>
 
               {status === 'success' && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg text-center font-mono text-sm"
+                  className="p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg text-center text-sm"
                 >
-                  TRANSMISSION SUCCESSFUL. MESSAGE RECEIVED.
+                  Thank you. Your message has been sent.
                 </motion.div>
               )}
 
@@ -179,9 +190,9 @@ export const Contact = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg text-center font-mono text-sm"
+                  className="p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg text-center text-sm"
                 >
-                  TRANSMISSION FAILED. PLEASE TRY AGAIN LATER.
+                  Sorry, the message could not be sent. Please email me directly.
                 </motion.div>
               )}
             </div>

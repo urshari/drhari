@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { FileText, ExternalLink } from 'lucide-react';
+import { PROFILE } from '../data/profile';
 import { useState } from 'react';
 import { Modal } from './Modal';
 
@@ -48,8 +49,26 @@ export const Research = () => {
               Research & <span className="text-purple-glow glow-text">Publications</span>
             </h2>
             <p className="text-slate-600 font-mono text-sm max-w-2xl">
-              Focusing on IoT Security, Blockchain, and Advanced Routing Algorithms. Over 24 peer-reviewed journals and conference proceedings.
+              Applied research in IoT security, blockchain, federated learning and wireless networks. Selected publications below; full record and citations on my research profiles.
             </p>
+          </div>
+          <div className="flex flex-wrap gap-2 shrink-0">
+            {[
+              { label: 'Google Scholar', href: PROFILE.scholar },
+              { label: 'ORCID', href: PROFILE.orcid },
+              { label: 'Scopus', href: PROFILE.scopus },
+              { label: 'Web of Science', href: PROFILE.webOfScience },
+            ].map((l) => (
+              <a
+                key={l.label}
+                href={l.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-sm px-3 py-1.5 rounded-full border border-slate-300 text-slate-700 hover:bg-slate-100 transition-colors"
+              >
+                {l.label} <ExternalLink size={14} />
+              </a>
+            ))}
           </div>
         </motion.div>
 
@@ -102,11 +121,16 @@ export const Research = () => {
               </span>
             </div>
             <p className="text-slate-600 leading-relaxed text-sm">
-              Dr. Harihara Gopalan has actively contributed to this domain through rigorous research. This peer-reviewed publication details novel implementations and findings relevant to cyber-security and advanced networks.
+              Full details, co-authors and citations are listed on my Google Scholar profile.
             </p>
             <div className="flex gap-4 pt-4 mt-6 border-t border-slate-100">
-              <a href="#" className="flex items-center gap-2 px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg transition-colors font-medium text-sm">
-                <ExternalLink size={18} /> View Publication Details
+              <a
+                href={`${PROFILE.scholar}&view_op=list_works`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg transition-colors font-medium text-sm"
+              >
+                <ExternalLink size={18} /> View on Google Scholar
               </a>
             </div>
           </div>

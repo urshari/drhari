@@ -17,7 +17,7 @@ export const Footer = () => {
           </div>
 
           <p className="text-slate-600 text-sm text-center md:text-left">
-            "Securing the Future with Intelligence & Innovation."
+            Cybersecurity Strategy, GRC &amp; Digital Trust · Coimbatore, India
           </p>
 
           <button
@@ -31,9 +31,9 @@ export const Footer = () => {
 
         <div className="mt-8 pt-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center text-xs font-mono text-slate-500">
           <p>© {new Date().getFullYear()} Dr. Harihara Gopalan S. All Rights Reserved.</p>
-          <p className="mt-2 md:mt-0 cursor-default hover:text-neon-blue/70 transition-colors">
-            SYSTEM_STATUS: ONLINE_AND_SECURE
-          </p>
+          <a href="https://www.linkedin.com/in/harisuryanarayanan" target="_blank" rel="noopener noreferrer" className="mt-2 md:mt-0 hover:text-slate-900 transition-colors">
+            linkedin.com/in/harisuryanarayanan
+          </a>
         </div>
       </div>
     </footer>

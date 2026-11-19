@@ -1,30 +1,15 @@
 import { motion } from 'framer-motion';
-import { Shield, Users, Target } from 'lucide-react';
+import { PROFILE, MEMBERSHIPS } from '../data/profile';
+
+const priorities = [
+  'Scaling enterprise security and compliance services',
+  'Consumer cyber protection',
+  'Indo-Israel technology partnerships',
+  'Practical cybersecurity awareness',
+  'Translating complex cyber risks into business decisions',
+];
 
 export const About = () => {
-  const highlights = [
-    {
-      icon: <Shield className="text-neon-blue mb-4" size={32} />,
-      title: '18+ Years Experience',
-      description: 'Extensive background in cybersecurity, wireless networks, and IT infrastructure management.',
-    },
-    {
-      icon: <Shield className="text-neon-blue mb-4" size={32} />,
-      title: '18+ Years Experience',
-      description: 'Extensive background in cybersecurity, wireless networks, and IT infrastructure management.',
-    },
-    {
-      icon: <Target className="text-neon-blue mb-4" size={32} />,
-      title: 'Cyber Security Expert',
-      description: 'Expertise in defensive and offensive operations, implementing robust security architectures.',
-    },
-    {
-      icon: <Users className="text-purple-glow mb-4" size={32} />,
-      title: 'Startup Mentor',
-      description: 'Strategic mentor for the TNStartup Initiative, guiding early-stage cybersecurity startups.',
-    },
-  ];
-
   return (
     <section id="about" className="py-24 relative">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -37,13 +22,12 @@ export const About = () => {
         >
           <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4 flex items-center gap-4">
             <span className="text-neon-blue font-mono text-xl sm:text-3xl">&lt;01/&gt;</span>
-            System Architecture <span className="text-slate-400 font-mono text-lg">_ABOUT_ME</span>
+            About
           </h2>
           <div className="h-[1px] w-full bg-gradient-to-r from-neon-blue/50 to-transparent"></div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Profile Details Container */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -53,50 +37,68 @@ export const About = () => {
           >
             <div className="absolute top-0 right-0 w-32 h-32 bg-neon-blue/10 blur-3xl rounded-full pb-10"></div>
 
-            {/* Profile Image */}
-            <div className="w-full aspect-[4/3] sm:aspect-square rounded-lg mb-8 relative overflow-hidden border-2 border-slate-200 group-hover:border-neon-blue/50 transition-colors shadow-lg">
-              <div className="absolute inset-0 bg-gradient-to-tr from-neon-blue/10 to-purple-glow/10 mix-blend-overlay z-10 pointer-events-none"></div>
-              <img 
-                src="/profile-photo.jpg" 
-                alt="Dr. Harihara Gopalan S speaking at a podium" 
+            <div className="w-full aspect-[4/3] rounded-lg mb-6 relative overflow-hidden border-2 border-slate-200 group-hover:border-neon-blue/50 transition-colors shadow-lg bg-slate-100">
+              <img
+                src="/profile-photo.jpg"
+                alt="Dr. Harihara Gopalan S speaking at a podium"
+                width={1200}
+                height={798}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = 'https://placehold.co/600x600/f8fafc/0f172a?text=Please+save+image+as\\npublic/profile-photo.jpg';
-                }}
               />
             </div>
 
-            <p className="text-slate-600 leading-relaxed mb-6 font-mono text-sm">
-              <span className="text-neon-blue">const</span> <span className="text-purple-glow">profile</span> = &lbrace;<br />
-              &nbsp;&nbsp;name: <span className="text-emerald-500">"Dr. Harihara Gopalan S"</span>,<br />
-              &nbsp;&nbsp;role: <span className="text-emerald-500">"Cyber Security Specialist"</span>,<br />
-              &nbsp;&nbsp;status: <span className="text-emerald-500">"Active"</span><br />
-              &rbrace;;
-            </p>
-            <p className="text-slate-600 leading-relaxed">
-              A seasoned professional with over 18 years of expertise specializing in Cyber Security and Wireless Networks. With several industry-recognized certifications including CEH, CISO, and Certified Blockchain Associate, I focus on advanced research, innovation, and strategic security architectures. Instrumental in designing sophisticated cybersecurity frameworks and fostering industry collaboration to secure next-generation technologies.
-            </p>
+            <h3 className="text-xl font-bold text-slate-900">{PROFILE.name}</h3>
+            <p className="text-slate-600 text-sm mt-1">{PROFILE.currentRole}</p>
+            <p className="text-slate-500 text-sm font-mono mt-1">{PROFILE.location}</p>
+
+            <div className="mt-6 pt-6 border-t border-slate-200">
+              <p className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-3">Memberships & volunteering</p>
+              <ul className="space-y-2">
+                {MEMBERSHIPS.map((m) => (
+                  <li key={m.name} className="text-sm text-slate-700">
+                    <span className="font-semibold">{m.name}</span>
+                    <span className="text-slate-500"> · {m.since}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </motion.div>
 
-          {/* Highlights Grid */}
-          <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6">
-            {highlights.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="glass-panel p-6 rounded-xl hover:bg-slate-200/50 hover:shadow-[0_0_20px_rgba(37,99,235,0.15)] transition-all duration-300 border border-transparent hover:border-neon-blue/30"
-              >
-                {item.icon}
-                <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">
-                  {item.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-7 space-y-6 text-slate-700 leading-relaxed text-lg"
+          >
+            <p>
+              I help organisations turn cybersecurity from a technical requirement into a business capability.
+            </p>
+            <p>
+              As Senior Manager at TechGuard Labs Foundation, an Indo-Israeli cybersecurity company, I lead business
+              strategy, client engagement, strategic partnerships and solution delivery across enterprise and consumer
+              markets.
+            </p>
+            <p>
+              My {PROFILE.yearsExperience} years span cybersecurity, IT leadership, research and academia: heading
+              information technology services and teaching at Sri Ramakrishna Engineering College, founding Zyphron
+              Technologies, and publishing research on blockchain, IoT security and wireless networks.
+            </p>
+
+            <div className="glass-panel rounded-xl p-6">
+              <p className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-4">Current priorities</p>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {priorities.map((p) => (
+                  <li key={p} className="flex gap-3 text-base text-slate-700">
+                    <span className="mt-2 w-2 h-2 rounded-full bg-matrix-green shrink-0"></span>
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
