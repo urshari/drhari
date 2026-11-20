@@ -200,7 +200,7 @@ export const EDUCATION = [
   { degree: 'B.Tech, Information Technology', specialization: 'Information Technology', institution: 'Sri Ramakrishna Engineering College', years: '2001 – 2004' },
 ];
 
-export type EventRole = 'Industry Representative' | 'Industry Delegate' | 'Speaker' | 'Operations Leadership';
+export type EventRole = 'Valedictory Guest' | 'Industry Representative' | 'Industry Delegate' | 'Speaker' | 'Operations Leadership' | 'Host Team';
 
 export interface IndustryEvent {
   name: string;
@@ -218,36 +218,18 @@ export interface IndustryEvent {
 // Roles are stated exactly — attendee/representative roles are never presented as keynotes.
 export const INDUSTRY_EVENTS: IndustryEvent[] = [
   {
-    name: 'Israel Cyber Day @ Bangalore',
-    date: '7 May 2026',
-    host: 'Four Seasons Embassy One, Bangalore · Israel Economic & Trade Mission to South India',
-    role: 'Industry Representative',
-    roleDetail: 'Industry Representative (TechGuard Labs Foundation)',
+    name: 'SREC Cyber Week Valedictory — OWASP SREC Chapter',
+    date: 'Oct 2026',
+    host: 'Sri Ramakrishna Engineering College · OWASP SREC Chapter',
+    role: 'Valedictory Guest',
+    roleDetail: 'Invited Guest — Valedictory Ceremony (3rd consecutive year)',
     summary:
-      'Represented TechGuard Labs Foundation in B2B sessions and roundtables alongside global Israeli cybersecurity leaders and Indian industry stakeholders, including engagements with the Consul General of Israel (Ms. Orit Weitzman) and the Economic Attaché of Israel.',
-  },
-  {
-    name: 'CII Check Post ’26 — Cyber Security Conclave (3rd Edition)',
-    date: 'Jul 2026',
-    host: 'Confederation of Indian Industry (CII), Coimbatore',
-    role: 'Industry Delegate',
-    roleDetail: 'Industry Delegate (TechGuard Labs Foundation)',
-    summary:
-      'Represented TechGuard Labs Foundation at CII’s regional cybersecurity conclave themed “The Cyber Divide: Turning Digital Risk into Business Resilience”, featuring keynotes from the Director General of CERT-In and Reliance Industries’ Group CISO.',
-  },
-  {
-    name: 'ISEA–CISO Leadership Meet 2026',
-    date: 'Mar 2026',
-    host: 'Chennai · C-DAC, ISEA Project, Ministry of Electronics & IT (MeitY)',
-    role: 'Speaker',
-    roleDetail: 'Speaker',
-    topic: 'Cyber Resilience in the Era of AI-Driven Threats for CISOs',
-    summary: 'Session for CISOs and security leaders on building cyber resilience against AI-driven threats.',
+      'Returned as invited guest for the Cyber Week valedictory ceremony for the third consecutive year — this time from industry — celebrating student-led cybersecurity initiatives alongside chapter members and faculty coordinators.',
     photo: {
-      src: '/speaking-isea-ciso-2026.jpg',
-      alt: 'Dr. Harihara Gopalan S speaking at the ISEA–CISO Leadership Meet 2026, Chennai',
-      width: 1200,
-      height: 798,
+      src: '/speaking-owasp-cyberweek-2026.jpg',
+      alt: 'Dr. Harihara Gopalan S as invited guest at the OWASP SREC Chapter Cyber Week valedictory ceremony, Oct 2026',
+      width: 1146,
+      height: 777,
     },
   },
   {
@@ -260,6 +242,24 @@ export const INDUSTRY_EVENTS: IndustryEvent[] = [
     summary: 'Practical cyber resilience and the evolving threat landscape for business leaders and entrepreneurs.',
   },
   {
+    name: 'CII Check Post ’26 — Cyber Security Conclave (3rd Edition)',
+    date: 'Jul 2026',
+    host: 'Confederation of Indian Industry (CII), Coimbatore',
+    role: 'Industry Delegate',
+    roleDetail: 'Industry Delegate (TechGuard Labs Foundation)',
+    summary:
+      'Represented TechGuard Labs Foundation at CII’s regional cybersecurity conclave themed “The Cyber Divide: Turning Digital Risk into Business Resilience”, featuring keynotes from the Director General of CERT-In and Reliance Industries’ Group CISO.',
+  },
+  {
+    name: 'TechGuard Labs Foundation Open Day',
+    date: '23 Jun 2026',
+    host: 'SREC SPARK, Coimbatore · TechGuard Labs Foundation',
+    role: 'Host Team',
+    roleDetail: 'Organising Leadership Team (TechGuard Labs Foundation)',
+    summary:
+      'Hosted an open day connecting aspiring security professionals with cybersecurity career pathways, practitioner insights and the Ariel University Master’s programme.',
+  },
+  {
     name: 'TechGuard Labs Coimbatore Office Inauguration',
     date: '15 May 2026',
     host: 'SREC SPARK, Coimbatore · SNR Board of Trustees & Ariel University',
@@ -267,6 +267,24 @@ export const INDUSTRY_EVENTS: IndustryEvent[] = [
     roleDetail: 'Invested as Senior Manager leading Coimbatore operations',
     summary:
       'Formally invested as Senior Manager to lead Coimbatore office operations at the launch presided over by the SNR Board of Trustees, marking the first project agreement with SRH Coimbatore with addresses from the Israel Economic Mission to South India and Ariel University.',
+  },
+  {
+    name: 'Israel Cyber Day @ Bangalore',
+    date: '7 May 2026',
+    host: 'Four Seasons Embassy One, Bangalore · Israel Economic & Trade Mission to South India',
+    role: 'Industry Representative',
+    roleDetail: 'Industry Representative (TechGuard Labs Foundation)',
+    summary:
+      'Represented TechGuard Labs Foundation in B2B sessions and roundtables alongside global Israeli cybersecurity leaders and Indian industry stakeholders, including engagements with the Consul General of Israel (Ms. Orit Weitzman) and the Economic Attaché of Israel.',
+  },
+  {
+    name: 'ISEA–CISO Leadership Meet 2026',
+    date: 'Mar 2026',
+    host: 'Chennai · C-DAC, ISEA Project, Ministry of Electronics & IT (MeitY)',
+    role: 'Speaker',
+    roleDetail: 'Speaker',
+    topic: 'Cyber Resilience in the Era of AI-Driven Threats for CISOs',
+    summary: 'Session for CISOs and security leaders on building cyber resilience against AI-driven threats.',
   },
 ];
 
@@ -277,12 +295,6 @@ export const SPEAKING = [
     event: 'AICTE VAANI Workshop on Cyber Security, Ethical AI & Smart Digital Defense',
     host: 'KPR Institute of Engineering and Technology',
     date: '28–30 Sep 2026',
-  },
-  {
-    title: 'Valedictory Guest — third consecutive year',
-    event: 'SREC Cyber Week Valedictory',
-    host: 'Sri Ramakrishna Engineering College · OWASP SREC Chapter',
-    date: 'Oct 2026',
   },
   {
     title: 'AI and Cybersecurity',

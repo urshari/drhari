@@ -3,10 +3,12 @@ import { INDUSTRY_EVENTS, SPEAKING, EARLIER_SPEAKING, RECOMMENDATIONS, type Even
 import { Reveal, SectionHeader } from './Reveal';
 
 const roleStyle: Record<EventRole, { cls: string; icon: typeof Mic }> = {
+  'Valedictory Guest': { cls: 'bg-teal-400/15 text-teal-200 ring-teal-300/30', icon: Presentation },
   Speaker: { cls: 'bg-teal-400/15 text-teal-200 ring-teal-300/30', icon: Mic },
   'Industry Representative': { cls: 'bg-steel-400/15 text-sky-200 ring-sky-300/30', icon: Building2 },
   'Industry Delegate': { cls: 'bg-steel-400/15 text-sky-200 ring-sky-300/30', icon: Users },
   'Operations Leadership': { cls: 'bg-amber-300/10 text-amber-200 ring-amber-200/30', icon: Handshake },
+  'Host Team': { cls: 'bg-amber-300/10 text-amber-200 ring-amber-200/30', icon: Building2 },
 };
 
 const RoleBadge = ({ role }: { role: EventRole }) => {
