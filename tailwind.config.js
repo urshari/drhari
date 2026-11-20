@@ -1,35 +1,29 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  darkMode: 'class',
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
-        'deep-navy': '#ffffff', // pure white
-        'neon-blue': '#111827', // dark text instead of neon blue
-        'purple-glow': '#374151', // sleek grey
-        'matrix-green': '#10b981', // green is fine, keep a little color for accents
-        'cyber-black': '#f9fafb', // very light gray
-        'cyber-darker': '#ffffff', // pure white
+        // Executive corporate palette
+        navy: {
+          950: '#0B1628',
+          900: '#0F1E36',
+          800: '#152A47',
+          700: '#1E3A5F',
+        },
+        steel: {
+          400: '#7FA3C7',
+          500: '#4F7CAC',
+          600: '#3B6591',
+        },
       },
       fontFamily: {
-        sans: ['Inter', 'Poppins', 'sans-serif'],
-        mono: ['Fira Code', 'Courier New', 'monospace'],
+        sans: ['"Inter Variable"', 'Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
       },
-      animation: {
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'float': 'float 6s ease-in-out infinite',
+      letterSpacing: {
+        eyebrow: '0.18em',
       },
-      keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' },
-        }
-      }
     },
   },
   plugins: [],
-}
+};

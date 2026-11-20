@@ -3,10 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
 const navLinks = [
-  { name: 'About', href: '#about' },
+  { name: 'Profile', href: '#about' },
+  { name: 'Expertise', href: '#expertise' },
   { name: 'Experience', href: '#experience' },
+  { name: 'Industry Events', href: '#speaking' },
   { name: 'Impact', href: '#impact' },
-  { name: 'Speaking', href: '#speaking' },
   { name: 'Credentials', href: '#certifications' },
   { name: 'Research', href: '#research' },
 ];
@@ -16,52 +17,66 @@ export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 40);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const solid = isScrolled || isOpen;
+
   return (
     <>
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'glass-panel py-3 shadow-[0_4px_30px_rgba(0,240,255,0.1)]' : 'py-5'
-          }`}
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          solid
+            ? 'bg-white/95 backdrop-blur border-b border-slate-200 py-3 shadow-[0_1px_12px_rgba(15,23,42,0.06)]'
+            : 'bg-transparent border-b border-white/10 py-5'
+        }`}
       >
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center">
-          <a href="#" className="flex items-center gap-2 group">
-            <span className="text-xl font-bold tracking-tighter text-slate-900 group-hover:glow-text transition-all">
-              <span className="text-neon-blue">&gt;</span> Dr. Harihara Gopalan S
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center gap-6">
+          <a href="#" className="flex items-center gap-3" aria-label="Dr. Harihara Gopalan S — home">
+            <span
+              className={`flex h-9 w-9 items-center justify-center rounded-lg text-sm font-semibold tracking-wide ${
+                solid ? 'bg-navy-950 text-white' : 'bg-white/10 text-white ring-1 ring-white/20'
+              }`}
+            >
+              HG
             </span>
-            <span className="animate-pulse w-2 h-5 bg-neon-blue inline-block"></span>
+            <span className="leading-tight">
+              <span className={`block text-[15px] font-semibold ${solid ? 'text-navy-950' : 'text-white'}`}>
+                Dr. Harihara Gopalan S
+              </span>
+              <span className={`hidden sm:block text-xs ${solid ? 'text-slate-500' : 'text-slate-300'}`}>
+                Cybersecurity Strategy · GRC · Digital Trust
+              </span>
+            </span>
           </a>
 
-          {/* Desktop Nav */}
-          <div className="hidden lg:flex gap-7 items-center">
+          <div className="hidden xl:flex gap-7 items-center">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="text-sm font-medium text-slate-700 hover:text-slate-900 hover:glow-text transition-colors"
+                className={`text-sm font-medium transition-colors ${
+                  solid ? 'text-slate-600 hover:text-navy-950' : 'text-slate-300 hover:text-white'
+                }`}
               >
                 {link.name}
               </a>
             ))}
             <a
               href="#contact"
-              className="px-5 py-2 rounded border neon-border text-sm font-semibold hover:bg-neon-blue/10 transition-colors"
+              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
+                solid ? 'bg-navy-950 text-white hover:bg-navy-800' : 'bg-white text-navy-950 hover:bg-slate-100'
+              }`}
             >
-              Contact
+              Get in touch
             </a>
           </div>
 
-          {/* Mobile Nav Toggle */}
           <button
-            className="lg:hidden text-slate-700 hover:text-slate-900"
+            className={`xl:hidden ${solid ? 'text-navy-950' : 'text-white'}`}
             onClick={() => setIsOpen(!isOpen)}
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isOpen}
@@ -69,24 +84,24 @@ export const Navigation = () => {
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
-      </motion.nav>
+      </nav>
 
-      {/* Mobile Nav Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-slate-50/95 backdrop-blur-xl pt-24 px-6 lg:hidden"
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-x-0 top-0 z-40 bg-white pt-24 pb-8 px-6 border-b border-slate-200 shadow-lg xl:hidden"
           >
-            <div className="flex flex-col gap-6 items-center">
-              {[...navLinks, { name: 'Contact', href: '#contact' }].map((link) => (
+            <div className="flex flex-col gap-1 max-w-7xl mx-auto">
+              {[...navLinks, { name: 'Get in touch', href: '#contact' }].map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="text-2xl font-semibold text-slate-700 hover:text-neon-blue hover:glow-text transition-colors"
+                  className="py-3 text-lg font-medium text-slate-700 hover:text-teal-700 border-b border-slate-100 last:border-0"
                 >
                   {link.name}
                 </a>

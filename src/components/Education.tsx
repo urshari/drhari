@@ -1,41 +1,28 @@
-import { motion } from 'framer-motion';
 import { GraduationCap } from 'lucide-react';
 import { EDUCATION } from '../data/profile';
+import { Reveal } from './Reveal';
 
 export const Education = () => {
   return (
-    <section id="education" className="py-20 relative">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-12 flex items-center justify-between border-b border-slate-200 pb-6"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 flex items-center gap-3">
-            <GraduationCap className="text-neon-blue" size={40} />
-            Education
-          </h2>
-        </motion.div>
+    <section id="education" className="pb-20 md:pb-28 bg-slate-50 border-b border-slate-200">
+      <div className="container-exec">
+        <Reveal className="mb-8 border-t border-slate-200 pt-12">
+          <p className="eyebrow">Academic foundation</p>
+          <h3 className="mt-2 text-2xl font-semibold text-navy-950 flex items-center gap-3">
+            <GraduationCap className="text-teal-700" size={26} /> Education
+          </h3>
+        </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <ol className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {EDUCATION.map((edu, index) => (
-            <motion.div
-              key={edu.degree}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="glass-panel p-6 rounded-xl border-t-4 border-neon-blue relative overflow-hidden"
-            >
-              <span className="text-sm font-mono text-slate-500 mb-2 block">{edu.years}</span>
-              <h3 className="text-xl font-bold text-slate-900 mb-2">{edu.degree}</h3>
-              <p className="text-slate-700 font-medium mb-4">{edu.specialization}</p>
-              <p className="text-sm text-slate-600">{edu.institution}</p>
-            </motion.div>
+            <Reveal as="li" key={edu.degree} delay={index * 0.05} className="card p-6">
+              <span className="text-xs font-semibold text-slate-500 tabular-nums">{edu.years}</span>
+              <h4 className="mt-2 text-lg font-semibold text-navy-950">{edu.degree}</h4>
+              <p className="mt-1 text-sm font-medium text-teal-700">{edu.specialization}</p>
+              <p className="mt-3 text-sm text-slate-600">{edu.institution}</p>
+            </Reveal>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

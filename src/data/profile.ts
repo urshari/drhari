@@ -1,5 +1,5 @@
 // Single source of truth for profile content.
-// Facts verified against Dr. Hari's LinkedIn profile (Nov 2026). Update here, not in components.
+// Facts verified against Dr. Hari's LinkedIn profile and 2026 LinkedIn activity (Nov 2026). Update here, not in components.
 
 export const PROFILE = {
   name: 'Dr. Harihara Gopalan S',
@@ -23,7 +23,7 @@ export const PROFILE = {
   techguard: 'https://www.techguardlabs.com/',
 } as const;
 
-// Profile links shown as icons (hero + contact). Icons ported from the live site's /badges/.
+// Profile links shown as icons (research + contact + footer). Icons ported from the live site's /badges/.
 export const SOCIAL_LINKS = [
   { title: 'LinkedIn', href: PROFILE.linkedin, image: '/badges/linkedin.svg' },
   { title: 'Google Scholar', href: PROFILE.scholar, image: '/badges/google-scholar.svg' },
@@ -34,12 +34,19 @@ export const SOCIAL_LINKS = [
   { title: 'Facebook', href: PROFILE.facebook, image: '/badges/facebook.svg' },
 ];
 
+// Scholarly profiles, shown in the Research section (kept out of the hero).
+export const ACADEMIC_LINKS = SOCIAL_LINKS.filter((l) =>
+  ['Google Scholar', 'ORCID', 'Scopus', 'Web of Science', 'SciProfiles'].includes(l.title),
+);
+
 export interface ExperienceItem {
   role: string;
   organization: string;
   location?: string;
   period: string;
   current?: boolean;
+  /** Visual emphasis on the timeline: industry roles are highlighted. */
+  track: 'industry' | 'it-leadership' | 'academic' | 'research' | 'community';
   description: string;
   bullets?: string[];
   website?: string;
@@ -52,6 +59,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     location: 'Coimbatore · Indo-Israeli cybersecurity company',
     period: 'Apr 2026 – Present',
     current: true,
+    track: 'industry',
     website: 'https://www.techguardlabs.com/',
     description:
       'Leads business strategy, client engagement, strategic partnerships and solution delivery across enterprise and consumer markets.',
@@ -69,30 +77,34 @@ export const EXPERIENCE: ExperienceItem[] = [
     organization: 'Zyphron Technologies Pvt. Ltd.',
     location: 'Bengaluru',
     period: 'Jul 2024 – Jun 2026',
+    track: 'industry',
     description:
       'Founded and led a cybersecurity-focused technology venture incubated under the National Innovation and Startup Policy (NISP) at SREC SPARK.',
-  },
-  {
-    role: 'Associate Professor · Assistant Professor',
-    organization: 'Sri Ramakrishna Engineering College',
-    location: 'Coimbatore',
-    period: 'Jun 2008 – Jun 2026',
-    description:
-      'Associate Professor (Dec 2018 – Jun 2026) and Assistant Professor (Jun 2008 – Dec 2018). Taught computer science, networks and cybersecurity; set up cybersecurity research labs, led the Network Research Group and coordinated Smart India Hackathon participation.',
   },
   {
     role: 'Head of Information Technology Services',
     organization: 'Sri Ramakrishna Engineering College',
     location: 'Coimbatore',
     period: 'Jun 2008 – Nov 2024',
+    track: 'it-leadership',
     description:
       'Led campus IT services and large-scale infrastructure: fibre backbone and core switching, enterprise wireless, security operations, centralised CCTV surveillance, access control and operational continuity.',
+  },
+  {
+    role: 'Associate Professor · Assistant Professor',
+    organization: 'Sri Ramakrishna Engineering College',
+    location: 'Coimbatore',
+    period: 'Jun 2008 – Jun 2026',
+    track: 'academic',
+    description:
+      'Associate Professor (Dec 2018 – Jun 2026) and Assistant Professor (Jun 2008 – Dec 2018). Taught computer science, networks and cybersecurity; set up cybersecurity research labs, led the Network Research Group and coordinated Smart India Hackathon participation.',
   },
   {
     role: 'IASc Summer Research Fellow',
     organization: 'CSIR-Central Mechanical Engineering Research Institute (CMERI)',
     location: 'Durgapur',
     period: 'Jun – Aug 2025',
+    track: 'research',
     description:
       'Researched secure blockchain-enabled federated learning for Industrial IoT predictive maintenance, using digital-twin data across 100 simulated clients.',
   },
@@ -101,6 +113,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     organization: 'SREC Alumni Association',
     period: 'Oct 2022 – Present',
     current: true,
+    track: 'community',
     description: 'Alumni association leadership role at Sri Ramakrishna Engineering College.',
   },
 ];
@@ -119,19 +132,19 @@ export const EXPERTISE = [
       'Turning cyber risk, regulation and business priorities into security roadmaps, governance and audit-ready compliance programmes.',
   },
   {
-    title: 'Digital Trust & Cyber Resilience',
+    title: 'Digital Trust & Enterprise Resilience',
     description:
       'Enterprise and consumer cyber protection, resilience planning and practical cybersecurity awareness that leadership teams can act on.',
   },
   {
-    title: 'Security Research',
+    title: 'Indo-Israel Partnerships & Advisory',
     description:
-      'Applied research in blockchain security, federated learning and Industrial IoT, backed by peer-reviewed publications and a published patent.',
+      'Building India–Israel technology and cybersecurity partnerships at TechGuard Labs Foundation, with Cyber Range training at Ariel University and startup mentoring under the TNStartup initiative.',
   },
   {
-    title: 'Academic Leadership & Mentoring',
+    title: 'Enterprise IT Operations & Applied Security Research',
     description:
-      'Eighteen years of teaching, lab building and student mentoring at SREC, plus startup mentoring under the TNStartup initiative.',
+      'Headed campus IT services at SREC (2008 – 2024): fibre backbone, enterprise wireless, security operations, CCTV and access control. Backed by peer-reviewed research in blockchain, federated learning and IIoT security, and a published patent.',
   },
 ];
 
@@ -187,30 +200,89 @@ export const EDUCATION = [
   { degree: 'B.Tech, Information Technology', specialization: 'Information Technology', institution: 'Sri Ramakrishna Engineering College', years: '2001 – 2004' },
 ];
 
-export const SPEAKING = [
+export type EventRole = 'Industry Representative' | 'Industry Delegate' | 'Speaker' | 'Host & Partner';
+
+export interface IndustryEvent {
+  name: string;
+  date: string;
+  host: string;
+  role: EventRole;
+  /** Exact role wording as described on LinkedIn. */
+  roleDetail: string;
+  topic?: string;
+  summary: string;
+  photo?: { src: string; alt: string; width: number; height: number };
+}
+
+// Featured tier: industry summits, conclaves and executive forums (2026), verified from LinkedIn.
+// Roles are stated exactly — attendee/representative roles are never presented as keynotes.
+export const INDUSTRY_EVENTS: IndustryEvent[] = [
   {
-    title: 'Cyber Resilience in the Era of AI-Driven Threats for CISOs',
-    event: 'ISEA–CISO Leadership Meet 2026, Chennai',
-    host: 'C-DAC, ISEA Project, Ministry of Electronics & IT (MeitY)',
-    date: 'Mar 2026',
+    name: 'Israel Cyber Day @ Bangalore',
+    date: '7 May 2026',
+    host: 'Four Seasons Embassy One, Bangalore · Israel Economic & Trade Mission to South India',
+    role: 'Industry Representative',
+    roleDetail: 'Industry Representative (TechGuard Labs Foundation)',
+    summary:
+      'Represented TechGuard Labs Foundation in B2B sessions and roundtables alongside global Israeli cybersecurity leaders and Indian industry stakeholders, including engagements with the Consul General of Israel (Ms. Orit Weitzman) and the Economic Attaché of Israel.',
   },
   {
-    title: 'Inauguration and opening session: “Inside the Hacker’s Mind”',
+    name: 'CII Check Post ’26 — Cyber Security Conclave (3rd Edition)',
+    date: 'Jul 2026',
+    host: 'Confederation of Indian Industry (CII), Coimbatore',
+    role: 'Industry Delegate',
+    roleDetail: 'Industry Delegate (TechGuard Labs Foundation)',
+    summary:
+      'Represented TechGuard Labs Foundation at CII’s regional cybersecurity conclave themed “The Cyber Divide: Turning Digital Risk into Business Resilience”, alongside enterprise security leaders including DG CERT-In and Reliance Industries’ Group CISO.',
+  },
+  {
+    name: 'ISEA–CISO Leadership Meet 2026',
+    date: 'Mar 2026',
+    host: 'Chennai · C-DAC, ISEA Project, Ministry of Electronics & IT (MeitY)',
+    role: 'Speaker',
+    roleDetail: 'Speaker',
+    topic: 'Cyber Resilience in the Era of AI-Driven Threats for CISOs',
+    summary: 'Session for CISOs and security leaders on building cyber resilience against AI-driven threats.',
+    photo: {
+      src: '/speaking-isea-ciso-2026.jpg',
+      alt: 'Dr. Harihara Gopalan S speaking at the ISEA–CISO Leadership Meet 2026, Chennai',
+      width: 1200,
+      height: 798,
+    },
+  },
+  {
+    name: 'Sudarshana Executive Forum (49th Fortnightly Meeting)',
+    date: 'Sep 2026',
+    host: 'BBB Trust, Coimbatore',
+    role: 'Speaker',
+    roleDetail: 'Speaker (Knowledge Sharing Session)',
+    topic: 'MSME Cyber Threat Landscape',
+    summary: 'Practical cyber resilience and the evolving threat landscape for business leaders and entrepreneurs.',
+  },
+  {
+    name: 'DCG91422 (DEF CON Group Coimbatore) — Inaugural Chapter Meetup',
+    date: 'Jun 2026',
+    host: 'Hosted at TechGuard Labs Foundation, Coimbatore',
+    role: 'Host & Partner',
+    roleDetail: 'Host & Community Partner',
+    summary:
+      'Co-hosted Coimbatore’s first DEF CON Group chapter meetup with Hackers Community Coimbatore and OWASP Coimbatore to foster practitioner collaboration.',
+  },
+];
+
+// Secondary tier: workshops, academic forums and community sessions.
+export const SPEAKING = [
+  {
+    title: 'Inauguration & opening session: “Inside the Hacker’s Mind: Understanding Cyber Threats and Digital Attacks”',
     event: 'AICTE VAANI Workshop on Cyber Security, Ethical AI & Smart Digital Defense',
     host: 'KPR Institute of Engineering and Technology',
     date: '28–30 Sep 2026',
   },
   {
-    title: 'MSME Cyber Threat Landscape',
-    event: 'Sudarshana forum, BBB Trust, Coimbatore',
-    host: 'Business leaders and entrepreneurs',
-    date: '2026',
-  },
-  {
-    title: 'Cyber Week',
-    event: 'Sri Ramakrishna Engineering College',
-    host: 'Students and faculty',
-    date: '',
+    title: 'Valedictory Guest — third consecutive year',
+    event: 'SREC Cyber Week Valedictory',
+    host: 'Sri Ramakrishna Engineering College · OWASP SREC Chapter',
+    date: 'Oct 2026',
   },
   {
     title: 'AI and Cybersecurity',
@@ -271,7 +343,7 @@ export const PARTNERSHIPS = [
     title: 'India–Israel Cybersecurity',
     location: 'TechGuard Labs Foundation · Ariel University, Israel',
     description:
-      'Indo-Israel technology partnerships at TechGuard. Completed hands-on training in Cyber Range-based simulation environments at Ariel University, strengthening practical incident response and enterprise security readiness.',
+      'Indo-Israel technology partnerships at TechGuard, launched in 2026 as an Indo-Israeli cybersecurity consulting, auditing and training centre serving South India, with addresses from the Head of the Israel Economic Mission to South India and the Rector of Ariel University. Completed hands-on training in Cyber Range-based simulation environments at Ariel University, strengthening practical incident response and enterprise security readiness.',
   },
   {
     title: 'Collaborative R&D',

@@ -3,37 +3,47 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
   body {
-    @apply bg-white text-gray-900 antialiased font-sans selection:bg-gray-900 selection:text-white;
+    @apply bg-slate-50 text-slate-800 antialiased font-sans selection:bg-teal-700 selection:text-white;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+  h1,
+  h2,
+  h3 {
+    @apply tracking-tight;
+  }
+  :focus-visible {
+    @apply outline-none ring-2 ring-teal-500 ring-offset-2;
   }
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+@layer components {
+  .section {
+    @apply py-20 md:py-28;
+  }
+  .container-exec {
+    @apply max-w-7xl mx-auto px-6 lg:px-8;
+  }
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-eyebrow text-teal-700;
+  }
+  .card {
+    @apply bg-white border border-slate-200 rounded-2xl shadow-[0_1px_2px_rgba(15,23,42,0.04)];
+  }
+  .card-hover {
+    @apply transition-all duration-300 hover:border-slate-300 hover:shadow-[0_12px_32px_-12px_rgba(15,23,42,0.18)];
+  }
+  .chip {
+    @apply inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-600;
+  }
 }
 
-::-webkit-scrollbar-track {
-  @apply bg-cyber-darker;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-gray-300 rounded-full hover:bg-gray-400 transition-colors duration-300;
-}
-
-/* Cyber Matrix Background Effect */
-.glass-panel {
-  @apply bg-white backdrop-blur-md border border-slate-200 shadow-[0_4px_30px_rgba(0,0,0,0.05)];
-}
-
-.neon-border {
-  @apply border border-neon-blue/30 shadow-[0_0_15px_rgba(0,240,255,0.2)] hover:shadow-[0_0_25px_rgba(0,240,255,0.4)] transition-all duration-300;
-}
-
-.glow-text {
-  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5), 0 0 20px rgba(0, 240, 255, 0.3);
-}
-
-.purple-glow-text {
-  text-shadow: 0 0 10px rgba(138, 43, 226, 0.5), 0 0 20px rgba(138, 43, 226, 0.3);
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }

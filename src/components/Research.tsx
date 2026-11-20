@@ -1,10 +1,11 @@
-import { motion } from 'framer-motion';
 import { FileText, ExternalLink } from 'lucide-react';
-import { PROFILE } from '../data/profile';
+import { PROFILE, ACADEMIC_LINKS } from '../data/profile';
+import { Reveal, SectionHeader } from './Reveal';
 import { useState } from 'react';
 import { Modal } from './Modal';
 
 const publications = [
+  { title: "Blockchain-Enabled Edge Computing with MEMAC: An Adaptive Clustering Framework for Secure and Energy-Efficient UWSNs in Marine Environment Monitoring", journal: "Franklin Open (Elsevier)", year: "2026" },
   { title: "An energy efficient routing protocol with fuzzy neural networks in wireless sensor network", journal: "Ain Shams Engineering Journal", year: "2024" },
   { title: "Enhancing IoT Security: A Blockchain-Based Mitigation Framework for Deauthentication Attacks", journal: "International Journal of Networked and Distributed Computing (Springer)", year: "2024" },
   { title: "Cognitive radio spectrum allocation using Nash equilibrium with multiple scheduling resource selection algorithm", journal: "Ain Shams Engineering Journal", year: "2024" },
@@ -33,93 +34,89 @@ const publications = [
 
 export const Research = () => {
   const [selectedPub, setSelectedPub] = useState<typeof publications[0] | null>(null);
+  const latest = publications[0];
 
   return (
-    <section id="research" className="py-24 bg-slate-50 relative">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 pb-6"
-        >
-          <div>
-            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">
-              Research & <span className="text-purple-glow glow-text">Publications</span>
-            </h2>
-            <p className="text-slate-600 font-mono text-sm max-w-2xl">
-              Applied research in IoT security, blockchain, federated learning and wireless networks. Selected publications below; full record and citations on my research profiles.
-            </p>
+    <section id="research" className="section bg-slate-50 border-t border-slate-200">
+      <div className="container-exec">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-10">
+          <div className="lg:col-span-7">
+            <SectionHeader
+              eyebrow="Research, Patents & Academic Foundation"
+              title="Applied security research"
+              intro="Peer-reviewed work in IoT security, blockchain, federated learning and wireless networks. Selected publications below; full record and citations on my research profiles."
+            />
           </div>
-          <div className="flex flex-wrap gap-2 shrink-0">
-            {[
-              { label: 'Google Scholar', href: PROFILE.scholar },
-              { label: 'ORCID', href: PROFILE.orcid },
-              { label: 'Scopus', href: PROFILE.scopus },
-              { label: 'Web of Science', href: PROFILE.webOfScience },
-              { label: 'SciProfiles', href: PROFILE.sciprofiles },
-            ].map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-sm px-3 py-1.5 rounded-full border border-slate-300 text-slate-700 hover:bg-slate-100 transition-colors"
-              >
-                {l.label} <ExternalLink size={14} />
-              </a>
-            ))}
-          </div>
-        </motion.div>
+          <Reveal className="lg:col-span-5 card p-6 self-start">
+            <p className="eyebrow mb-4">Scholarly profiles</p>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {ACADEMIC_LINKS.map((l) => (
+                <li key={l.title}>
+                  <a
+                    href={l.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 rounded-lg border border-slate-200 px-3 py-2.5 text-sm font-medium text-slate-700 hover:border-teal-600 hover:text-teal-800 transition-colors"
+                  >
+                    <img src={l.image} alt="" width={22} height={22} loading="lazy" className="h-[22px] w-[22px] object-contain" />
+                    {l.title}
+                    <ExternalLink size={13} className="ml-auto text-slate-400" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
 
-        <div className="glass-panel p-2 rounded-xl border border-slate-200 bg-slate-100/50">
-          <div className="max-h-[600px] overflow-y-auto pr-2 custom-scrollbar space-y-2">
-            {publications.map((pub, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -10 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-20px" }}
-                transition={{ duration: 0.3, delay: (index % 10) * 0.05 }}
-                onClick={() => setSelectedPub(pub)}
-                className="flex flex-col md:flex-row md:items-center justify-between p-4 bg-black/5 rounded-lg hover:bg-black/10 border border-transparent hover:border-purple-glow/30 transition-all group cursor-pointer"
-              >
-                <div className="flex gap-4 items-start md:items-center">
-                  <FileText className="text-purple-glow/50 group-hover:text-purple-glow shrink-0 mt-1 md:mt-0" size={20} />
-                  <div>
-                    <h3 className="text-slate-900 font-medium text-[15px] leading-snug group-hover:text-neon-blue transition-colors">
-                      {pub.title}
-                    </h3>
-                    <p className="text-slate-500 text-sm mt-1">{pub.journal}</p>
-                  </div>
-                </div>
-                <div className="mt-3 md:mt-0 text-right md:-ml-4 shrink-0">
-                  <span className="text-xs font-mono text-neon-blue bg-neon-blue/10 px-3 py-1 rounded-full">
-                    {pub.year}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
+        <Reveal className="mb-6 rounded-2xl bg-navy-950 p-7 md:p-8 text-white flex flex-col md:flex-row md:items-center gap-5 justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-eyebrow text-teal-300">Latest publication · Aug 2026</p>
+            <h3 className="mt-3 text-lg md:text-xl font-semibold leading-snug max-w-3xl">{latest.title}</h3>
+            <p className="mt-2 text-sm text-slate-300">{latest.journal}</p>
           </div>
+          <a
+            href={PROFILE.scholarWorks}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="shrink-0 inline-flex items-center gap-2 rounded-lg border border-white/25 px-4 py-2.5 text-sm font-semibold hover:bg-white/10 transition-colors"
+          >
+            Google Scholar <ExternalLink size={14} />
+          </a>
+        </Reveal>
+
+        <div className="card p-2">
+          <ul className="max-h-[560px] overflow-y-auto divide-y divide-slate-100">
+            {publications.slice(1).map((pub) => (
+              <li key={pub.title}>
+                <button
+                  type="button"
+                  onClick={() => setSelectedPub(pub)}
+                  className="w-full text-left flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-6 px-4 py-4 rounded-lg hover:bg-slate-50 transition-colors group"
+                >
+                  <span className="flex gap-3 items-start">
+                    <FileText className="text-slate-300 group-hover:text-teal-700 shrink-0 mt-0.5" size={18} />
+                    <span>
+                      <span className="block text-navy-950 font-medium text-[15px] leading-snug group-hover:text-teal-800">
+                        {pub.title}
+                      </span>
+                      <span className="block text-slate-500 text-sm mt-1">{pub.journal}</span>
+                    </span>
+                  </span>
+                  <span className="text-xs font-semibold text-slate-500 tabular-nums md:shrink-0 pl-7 md:pl-0">{pub.year}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
-      <Modal
-        isOpen={!!selectedPub}
-        onClose={() => setSelectedPub(null)}
-        title="Research Publication"
-      >
+      <Modal isOpen={!!selectedPub} onClose={() => setSelectedPub(null)} title="Research Publication">
         {selectedPub && (
           <div className="space-y-4">
-            <h3 className="text-xl font-bold text-slate-900 leading-tight">
-              {selectedPub.title}
-            </h3>
-            <div className="flex flex-wrap items-center gap-4 text-purple-glow font-mono text-sm py-2">
-              <span>{selectedPub.journal}</span>
-              <span className="text-neon-blue bg-neon-blue/10 px-3 py-1 rounded-full">
-                {selectedPub.year}
-              </span>
+            <h3 className="text-xl font-semibold text-navy-950 leading-tight">{selectedPub.title}</h3>
+            <div className="flex flex-wrap items-center gap-3 text-sm py-2">
+              <span className="text-slate-700">{selectedPub.journal}</span>
+              <span className="rounded-full bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-800">{selectedPub.year}</span>
             </div>
             <p className="text-slate-600 leading-relaxed text-sm">
               Full details, co-authors and citations are listed on my Google Scholar profile.
@@ -129,9 +126,9 @@ export const Research = () => {
                 href={PROFILE.scholarWorks}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg transition-colors font-medium text-sm"
+                className="flex items-center gap-2 px-4 py-2 bg-navy-950 text-white hover:bg-navy-800 rounded-lg transition-colors font-medium text-sm"
               >
-                <ExternalLink size={18} /> View on Google Scholar
+                <ExternalLink size={16} /> View on Google Scholar
               </a>
             </div>
           </div>

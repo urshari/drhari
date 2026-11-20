@@ -1,95 +1,99 @@
-import { motion } from 'framer-motion';
-import { ShieldCheck, Lock, Award, CheckCircle, ExternalLink } from 'lucide-react';
-import { CERTIFICATIONS, RECOGNITION } from '../data/profile';
-
-const icons = [ShieldCheck, Lock, Award, CheckCircle];
+import { ShieldCheck, Award, ExternalLink, BadgeCheck } from 'lucide-react';
+import { CERTIFICATIONS, RECOGNITION, MEMBERSHIPS } from '../data/profile';
+import { Reveal, SectionHeader } from './Reveal';
 
 export const Certifications = () => {
   return (
-    <section id="certifications" className="py-20 bg-slate-100/50 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">
-            Professional <span className="text-neon-blue glow-text">Certifications</span>
-          </h2>
-          <p className="text-slate-600 text-base">Notable credentials, with the year each was earned.</p>
-        </motion.div>
+    <section id="certifications" className="section bg-white">
+      <div className="container-exec">
+        <SectionHeader
+          eyebrow="Credentials & Professional Affiliations"
+          title="Certifications, recognition and memberships"
+          intro="Status is shown as it stands: CISA is current; other credentials are listed with the year they were earned."
+        />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {CERTIFICATIONS.map((cert, index) => {
-            const Icon = icons[index % icons.length];
-            return (
-              <motion.div
-                key={cert.name}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
-                className={`glass-panel p-6 rounded-xl flex flex-col items-center text-center ${cert.current ? 'border-t-4 border-matrix-green' : ''}`}
-              >
-                <div className="h-24 flex items-center justify-center mb-4">
-                  {cert.badge ? (
-                    <img
-                      src={cert.badge}
-                      alt={`${cert.name} badge`}
-                      className={`h-20 sm:h-24 ${cert.badgeWide ? 'w-40 sm:w-48' : 'w-20 sm:w-24'} object-contain rounded-lg`}
-                    />
-                  ) : (
-                    <Icon size={48} className={cert.current ? 'text-matrix-green' : 'text-neon-blue'} />
-                  )}
-                </div>
-                <h3 className="text-slate-900 font-semibold leading-tight">{cert.name}</h3>
-                <p className="text-sm text-slate-600 mt-2">{cert.issuer}</p>
-                {(cert.year || cert.current) && (
-                  <p className="text-xs font-mono text-slate-500 mt-3">
-                    {cert.year && `Earned ${cert.year}`}
-                    {cert.current && (
-                      <span className="ml-2 text-emerald-700 bg-matrix-green/10 px-2 py-0.5 rounded-full">Current</span>
-                    )}
-                  </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {CERTIFICATIONS.map((cert, index) => (
+            <Reveal
+              key={cert.name}
+              delay={index * 0.05}
+              className={`rounded-2xl border p-6 flex flex-col ${
+                cert.current ? 'border-teal-600 bg-white shadow-[0_12px_32px_-16px_rgba(13,148,136,0.45)]' : 'border-slate-200 bg-slate-50'
+              }`}
+            >
+              <div className="h-20 flex items-center">
+                {cert.badge ? (
+                  <img
+                    src={cert.badge}
+                    alt={`${cert.name} badge`}
+                    loading="lazy"
+                    className={`h-16 ${cert.badgeWide ? 'w-36' : 'w-16'} object-contain object-left`}
+                  />
+                ) : cert.current ? (
+                  <ShieldCheck size={44} className="text-teal-700" />
+                ) : (
+                  <Award size={40} className="text-slate-400" />
                 )}
-                {cert.verify && (
-                  <a
-                    href={cert.verify}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-slate-700 hover:text-slate-900 underline-offset-4 hover:underline"
-                  >
-                    {cert.verifyLabel} <ExternalLink size={14} />
-                  </a>
+              </div>
+              <div className="mt-2">
+                {cert.current ? (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-teal-50 px-2.5 py-0.5 text-xs font-semibold text-teal-800 ring-1 ring-teal-100">
+                    <BadgeCheck size={13} /> Current{cert.year && ` · ${cert.year}`}
+                  </span>
+                ) : (
+                  <span className="inline-flex rounded-full bg-white px-2.5 py-0.5 text-xs font-medium text-slate-600 ring-1 ring-slate-200">
+                    {cert.year ? `Earned ${cert.year}` : 'Earned'}
+                  </span>
                 )}
-              </motion.div>
-            );
-          })}
+              </div>
+              <h3 className="mt-3 font-semibold text-navy-950 leading-snug">{cert.name}</h3>
+              <p className="mt-1 text-sm text-slate-500">{cert.issuer}</p>
+              {cert.verify && (
+                <a
+                  href={cert.verify}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-auto pt-5 inline-flex items-center gap-1 text-sm font-medium text-teal-700 hover:text-teal-900"
+                >
+                  {cert.verifyLabel} <ExternalLink size={14} />
+                </a>
+              )}
+            </Reveal>
+          ))}
         </div>
 
-        <motion.a
-          href={RECOGNITION.verify}
-          target="_blank"
-          rel="noopener noreferrer"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="mt-8 mx-auto max-w-xl glass-panel rounded-xl p-5 flex items-center gap-5 hover:border-neon-blue/40 transition-colors"
-        >
-          <img src={RECOGNITION.badge} alt={`${RECOGNITION.name} badge`} width={72} height={74} className="w-16 h-16 object-contain shrink-0" />
-          <div>
-            <p className="text-xs font-mono uppercase tracking-wider text-slate-500">Recognition</p>
-            <p className="font-semibold text-slate-900">
-              {RECOGNITION.name} · {RECOGNITION.issuer}
-            </p>
-            <p className="text-sm text-slate-600 inline-flex items-center gap-1">
-              Verify with EC-Council <ExternalLink size={14} />
-            </p>
-          </div>
-        </motion.a>
+        <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <Reveal>
+            <a
+              href={RECOGNITION.verify}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="card card-hover h-full p-6 flex items-center gap-5"
+            >
+              <img src={RECOGNITION.badge} alt={`${RECOGNITION.name} badge`} width={72} height={74} loading="lazy" className="w-16 h-16 object-contain shrink-0" />
+              <div>
+                <p className="eyebrow">Recognition</p>
+                <p className="mt-1 font-semibold text-navy-950">
+                  {RECOGNITION.name} · {RECOGNITION.issuer}
+                </p>
+                <p className="mt-1 text-sm text-teal-700 inline-flex items-center gap-1">
+                  Verify with EC-Council <ExternalLink size={14} />
+                </p>
+              </div>
+            </a>
+          </Reveal>
+          <Reveal delay={0.06} className="card p-6">
+            <p className="eyebrow mb-3">Professional memberships</p>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {MEMBERSHIPS.map((m) => (
+                <li key={m.name}>
+                  <p className="text-sm font-semibold text-navy-950">{m.name}</p>
+                  <p className="text-xs text-slate-500">{m.since}</p>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
