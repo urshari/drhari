@@ -5,7 +5,10 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 5.5rem;
+  }
+  section[id] {
+    scroll-margin-top: 5.5rem;
   }
   body {
     @apply bg-slate-50 text-slate-800 antialiased font-sans selection:bg-teal-700 selection:text-white;

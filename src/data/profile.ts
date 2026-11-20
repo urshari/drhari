@@ -200,7 +200,7 @@ export const EDUCATION = [
   { degree: 'B.Tech, Information Technology', specialization: 'Information Technology', institution: 'Sri Ramakrishna Engineering College', years: '2001 – 2004' },
 ];
 
-export type EventRole = 'Industry Representative' | 'Industry Delegate' | 'Speaker' | 'Host & Partner';
+export type EventRole = 'Industry Representative' | 'Industry Delegate' | 'Speaker' | 'Operations Leadership';
 
 export interface IndustryEvent {
   name: string;
@@ -233,7 +233,7 @@ export const INDUSTRY_EVENTS: IndustryEvent[] = [
     role: 'Industry Delegate',
     roleDetail: 'Industry Delegate (TechGuard Labs Foundation)',
     summary:
-      'Represented TechGuard Labs Foundation at CII’s regional cybersecurity conclave themed “The Cyber Divide: Turning Digital Risk into Business Resilience”, alongside enterprise security leaders including DG CERT-In and Reliance Industries’ Group CISO.',
+      'Represented TechGuard Labs Foundation at CII’s regional cybersecurity conclave themed “The Cyber Divide: Turning Digital Risk into Business Resilience”, featuring keynotes from the Director General of CERT-In and Reliance Industries’ Group CISO.',
   },
   {
     name: 'ISEA–CISO Leadership Meet 2026',
@@ -260,13 +260,13 @@ export const INDUSTRY_EVENTS: IndustryEvent[] = [
     summary: 'Practical cyber resilience and the evolving threat landscape for business leaders and entrepreneurs.',
   },
   {
-    name: 'DCG91422 (DEF CON Group Coimbatore) — Inaugural Chapter Meetup',
-    date: 'Jun 2026',
-    host: 'Hosted at TechGuard Labs Foundation, Coimbatore',
-    role: 'Host & Partner',
-    roleDetail: 'Host & Community Partner',
+    name: 'TechGuard Labs Coimbatore Office Inauguration',
+    date: '15 May 2026',
+    host: 'SREC SPARK, Coimbatore · SNR Board of Trustees & Ariel University',
+    role: 'Operations Leadership',
+    roleDetail: 'Invested as Senior Manager leading Coimbatore operations',
     summary:
-      'Co-hosted Coimbatore’s first DEF CON Group chapter meetup with Hackers Community Coimbatore and OWASP Coimbatore to foster practitioner collaboration.',
+      'Formally invested as Senior Manager to lead Coimbatore office operations at the launch presided over by the SNR Board of Trustees, marking the first project agreement with SRH Coimbatore with addresses from the Israel Economic Mission to South India and Ariel University.',
   },
 ];
 
